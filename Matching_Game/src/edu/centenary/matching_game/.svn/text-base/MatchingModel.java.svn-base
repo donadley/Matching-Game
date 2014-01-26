@@ -1,0 +1,147 @@
+package edu.centenary.matching_game;
+
+import android.util.Log;
+
+
+public class MatchingModel extends ArrayList<Integer>{
+
+	//Data Members
+	private int size;
+	private PictureCard pc1;
+	private PictureCard pc2;
+	private PictureCard[][] board;
+	private int count;
+	
+	public static final int FIRST = 0;
+	public static final int SECOND = 1;
+	public static final int ALREADYT = 2;
+	public static final int ALREADYM = 3;
+	
+	// Constructor
+	public MatchingModel(int size) {
+		this.size = size;
+		board = new PictureCard[size][size];
+		count = 0;
+		pc1 = null;
+		pc2 = null;
+		
+		ArrayList<Integer> shapeList = new ArrayList<Integer> ();
+		
+		//Need to shuffle board.mixup()
+		
+		int halfSize = (int)((size*size) / 2);
+		int count = 0;
+		
+		
+		while(count < halfSize) { //half of total number of squares
+			int x = (int)(Math.random()*(13)); // don't use 0!
+			Log.d("","x is " + x);
+			if(x != 0) {
+				if (!shapeList.contains(x)) {
+				
+					shapeList.add(x);
+					Log.d("","shapeList with 0 " + shapeList.get(count));
+					count ++;
+				} 
+			}
+		}
+	// Double shapeList
+		int i = 0;
+		while(i<halfSize){
+			shapeList.add(shapeList.get(i));
+			i++;
+			Log.d("","shapeList is " + shapeList.get(i));
+		}
+		
+	// Add a BOMB!
+		shapeList.add(0);
+		Log.d("","shapeList with 0 " + shapeList.get(i));
+	//Shuffle shapeList		
+		shapeList.shuffle();
+		Log.d("","shuffle shapList " + shapeList.get(i));
+		
+	
+	// Putting shapeList into board
+		int count1 = 0;	
+		for (int p = 0; p < board.length ;p++){
+			for (int j = 0; j < board[p].length ;j++){			
+				 board[p][j] = new PictureCard(shapeList.get(count1));
+				 count1++;
+				 Log.d(""," " + count);
+				 Log.d("","count is " + count);
+			}
+		}
+		}
+		
+	
+	// Other Methods
+	public PictureCard get(int row, int column) {
+		return board[row][column];
+	}
+	
+	public int game(PictureCard tapped) {
+		// If its matched then don't record it
+		if (tapped.isMatched()){
+			return ALREADYM;
+	}else if (pc1 == null && pc2 == null) {
+			// First tap
+			pc1 = tapped;
+			pc1.flip();
+			if (tapped.isBomb()) {
+				endGame();
+				
+			}
+			return FIRST;
+		} else if (tapped == pc1) {
+			// you can't tap this twice!!
+			return ALREADYT;
+		} else {
+			// Second tap
+			pc2 = tapped;
+			pc2.flip();
+			if (pc2.isBomb()) {
+				endGame();
+			} else if (tapped.getShape() == pc1.getShape()) {
+				//matched
+				count ++;			
+				if (count == (size*size)/2){
+					win();
+				}
+				
+			}		
+			return SECOND;
+		}
+	}
+	public void win(){
+		throw new WinException();
+	}
+	public void endGame(){
+			throw new BombException();
+		}
+
+	
+	public boolean reset(){
+		// if not a match, wait a second, then reset
+		if (pc1.getShape() == pc2.getShape()){
+			pc1.setMatch(true);
+			pc2.setMatch(true);
+			
+			// Stay
+			pc1 = null;
+			pc2 = null;
+			return true;
+			
+			} else {
+			pc1.flip();
+			pc2.flip();
+			
+			// Stay
+			pc1 = null;
+			pc2 = null;
+			return false;
+			}
+	
+	}
+
+	
+}

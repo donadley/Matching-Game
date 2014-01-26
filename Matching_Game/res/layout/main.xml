@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    android:padding="5dip" >
+
+    <Button
+        android:id="@+id/easy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="142dp"
+        android:text="@string/button1"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/hard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/easy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:text="@string/button3"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/Matchhello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/easy"
+        android:layout_marginBottom="49dp"
+        android:padding="10sp"
+        android:text="@string/hello"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/MatchWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="46dp"
+        android:padding="10sp"
+        android:text="@string/welcome"
+        android:textSize="24sp" />
+
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.centenary.matching_game"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="10" />
+
+    <application
+        android:icon="@drawable/matchingicon"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".Matching_GameActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".GameActivity"></activity>
+        <activity
+            android:name=".ExplosionActivity"></activity>
+        <activity
+            android:name=".WinActivity"></activity>
+        <activity
+            android:name=".FlipActivity"></activity>
+    </application>
+
+</manifest>
